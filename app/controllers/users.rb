@@ -9,7 +9,6 @@ post "/users" do
 	redirect "/users/#{user.id}"
 end
 
-
 # VIEW PROFILE
 get "/users/:id" do
 	@user = User.find(params[:id])
@@ -29,10 +28,23 @@ patch "/users/:id" do
 	redirect "/users/#{user.id}"
 end
 
-
 # DELETE PROFILE
 delete "/users/:id" do
 	user = User.find(params[:id])
 	user.destroy
 	redirect "/"
 end
+
+# VIEW LOGIN PAGE
+get "/users/" do
+	erb :"user/index"
+end
+
+# LOGIN DATA
+post "/users/login" do
+	user = User.find_by(email: params[:email], password: params[password])
+	[session[:user_id] = user.id]
+	redirect "/users/#{user.id}"
+end
+
+# LOG OUT
