@@ -42,9 +42,13 @@ end
 
 # LOGIN DATA
 post "/users/login" do
-	user = User.find_by(email: params[:email], password: params[password])
-	[session[:user_id] = user.id]
+	user = User.find_by(email: params[:email], password: params[:password])
+	session[:user_id] = user.id
 	redirect "/users/#{user.id}"
 end
 
 # LOG OUT
+get "/users/logout" do
+	session[:user_id] = nil
+	redirect "/"
+end
