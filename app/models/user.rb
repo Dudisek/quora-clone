@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
 
 	attr_accessor :user
-
+	
+	has_many :answers
 	has_many :questions
 	# , :answers
 	has_secure_password
