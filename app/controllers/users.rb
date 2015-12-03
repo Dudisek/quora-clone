@@ -1,18 +1,32 @@
+
+
 # DISPLAY A CREATE PROFILE FORM 
-get "/users/new" do
-	erb :"user/new" 
+get "/users/registration" do
+	erb :"user/registration" 
 end
 
 # CREATE NEW USER
 post "/users" do
-	user = User.create(name: params[:name], email: params[:email], password: params[:password])
-	redirect "/users/#{user.id}"
+	user = User.new(name: params[:name], email: params[:email], password: params[:password])
+	if user.save
+		redirect "/users/#{user.id}"
+
+	else
+		@errors = user.errors.full_messages
+		erb :"user/registration"
+	end
 end
 
 # VIEW PROFILE
 get "/users/:id" do
 	@user = User.find(params[:id])
-	erb :"user/show"
+	erb :"user/profile"
+end
+
+#SHOW ALL USERS
+get "/users" do
+	@users = User.all
+	erb :"user/index"
 end
 
 # DISPLAY USER UPDATE FORM
@@ -36,8 +50,8 @@ delete "/users/:id" do
 end
 
 # VIEW LOGIN PAGE
-get "/users/" do
-	erb :"user/index"
+get "/users" do
+	erb :"index"
 end
 
 # LOGIN DATA
@@ -48,7 +62,7 @@ post "/users/login" do
 end
 
 # LOG OUT
-get "/users/logout" do
+delete "/logout" do
 	session[:user_id] = nil
 	redirect "/"
 end

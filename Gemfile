@@ -20,9 +20,12 @@ gem 'pg'
 
 # Adding rake for management
 gem 'rake'
-
+gem 'byebug'
 # Adding rspec for running unit testing
 gem 'rspec'
+
+# Password
+gem 'bcrypt'
 
 group :development, :test do
 	# Adding shotgun for local web hosting
