@@ -55,22 +55,36 @@ end
 
 # DISPLAY USER UPDATE FORM
 get "/users/:id/edit" do
+	
 	@user = User.find(params[:id])
-	erb :"user/edit"
+	if current_user.id == @user.id
+		erb :"user/edit"
+	else
+		erb :"404"
+	end
+
 end
 
 # UPDATE PROFILE
 patch "/users/:id" do
 	user = User.find(params[:id])
-	user.update(name: params[:name], email: params[:email], password: params[:password], description: params[:description])
-	redirect "/users/#{user.id}"
+	if current_user.id == user.id	
+		user.update(name: params[:name], email: params[:email], password: params[:password], description: params[:description])
+		redirect "/users/#{user.id}"
+	else
+		erb :"404"
+	end
 end
 
 # DELETE PROFILE
 delete "/users/:id" do
 	user = User.find(params[:id])
-	user.destroy
-	redirect "/"
+	if current_user.id == user.id
+		user.destroy
+		redirect "/"
+	else
+		erb :"404"
+	end
 end
 
 # LOG OUT

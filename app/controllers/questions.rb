@@ -7,14 +7,12 @@ end
 post '/questions' do	
 	@user = current_user
 	question = current_user.questions.new(title: params[:title], body: params[:body])
-  
   if question.save
 		redirect "/users/#{current_user.id}"
 	else
 		@error = question.errors.full_messages
 		erb :"question/create"
 	end
-
 end
 
 # SHOW ALL QUESTION
@@ -43,20 +41,4 @@ delete "/questions/:id" do
 	redirect "/users/#{current_user.id}"
 end
 
-# # DISPLAY A CREATE PROFILE FORM 
-# get "/users/registration" do
-# 	erb :"user/registration" 
-# end
 
-# # CREATE NEW USER
-# post "/users" do
-# 	user = User.new(name: params[:name], email: params[:email], password: params[:password])
-# 	if user.save
-# 		session[:user_id] = user.id
-# 		redirect "/users/#{user.id}"
-
-# 	else
-# 		@errors = user.errors.full_messages
-# 		erb :"user/registration"
-# 	end
-# end
