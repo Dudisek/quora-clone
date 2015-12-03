@@ -8,14 +8,18 @@
 	</ul>
 <% end %>
 
+<% if logged_in?%> 
+	<p>You are already registered</P>
 
-<form action="/users" method="post">
-	<label>Name: </label>
-	<input type="text" name="name"><br />
-	<label>Email: </label>
-	<input type="email" name="email"><br />
-	<label>Password: </label>
-	<input type="password" name="password"><br />
-	<input type="submit" name="Create user" />
-</form>
+<% else %> 
+	<form action="/users" method="post">
+		<label>Name: </label>
+		<input type="text" name="name"><br />
+		<label>Email: </label>
+		<input type="email" name="email"><br />
+		<label>Password: </label>
+		<input type="password" name="password"><br />
+		<input type="submit" name="Create user" />
+	</form>
 
+<%end%>
