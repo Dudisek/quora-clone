@@ -1,6 +1,12 @@
 <h1>Create New Question</h1>
 
+<% unless @error.nil? %>
+<p> <% @error.each do |a| %>
+<%= a %> </p>
+	<% end %>
+<% end %>
 
+<% if logged_in?%> 
 	<form action="/questions" method="post">
 		<label>Question: </label>
 		<input type="text" name="title"><br />
@@ -8,3 +14,6 @@
 		<textarea type="text" name="body"></textarea>
 		<input type="submit" name="Create Question" />
 	</form>
+<% else %>
+<p>Just registered users can create a question - please log in or create a new account</p>
+<% end %>

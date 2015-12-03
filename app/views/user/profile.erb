@@ -4,7 +4,8 @@ Name: <%= @user.name %> <br />
 Email: <%= @user.email %> <br />
 Description: <%= @user.description %> <br />
 
-
+<!-- BUTTONS LOGOUT, DELETE, EDIT -->
+<!-- visible just if logged -->
 
 <% if authorization? (@user.id)%>
 
@@ -21,3 +22,24 @@ Description: <%= @user.description %> <br />
 			<input type="submit" value="Logout">
 		</form>
 	<%end%>
+
+
+<!-- QUESTIONS -->
+
+<h2>Your questions</h2>
+
+<% @user.questions.each do |q| %>	
+<ul>
+<li>Question: <%= q.title %></li>
+<li>Description: <%= q.body %></li>
+<% if logged_in? %>
+		<a href="/questions/<%=q.id%>/edit"><button>Edit Question</button></a>
+
+		<form action="/questions/<%=q.id%>" method="post">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="Delete">
+		</form>
+<% end %>		
+</ul>
+<% end %>
+<a href="/questions/create"><button>Create Question</button></a>
