@@ -10,6 +10,15 @@
 	</ul>
 <% end %>
 
+<% if logged_in?%> 
+	<p> 
+		<%=current_user.name%>, you are already logged in
+	</P>
+
+
+<% else %>  
+
+
 <form action="/users/login" method="post">
 	<label>Email: </label>
  	<input type="email" name="email">
@@ -17,3 +26,15 @@
  	<input type="password" name="password">
  	<input type="submit" value="Login">
 </form>
+
+	<h1>LOGIN</h1>
+
+	<form action="/users/login" method="post">
+		<label>Email: </label>
+	 	<input type="email" name="email">
+	 	<label>Password: </label>
+	 	<input type="password" name="password">
+	 	<input type="submit" value="Login">
+	</form>
+
+<%end%>

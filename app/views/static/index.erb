@@ -1,12 +1,23 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<h1>Welcome our World</h1>
+<p></p>
 
-<h1>LOGIN</h1>
 
-<form action="/users/login" method="post">
-	<label>Email: </label>
- 	<input type="email" name="email">
- 	<label>Password: </label>
- 	<input type="password" name="password">
- 	<input type="submit" value="Login">
-</form>
+<% if logged_in?%> 
+	<p>Welcome 
+		<%=current_user.name%> 
+	</P>
+<% else %> 
+
+	<h1>LOGIN</h1>
+
+	<form action="/users/login" method="post">
+		<label>Email: </label>
+	 	<input type="email" name="email">
+	 	<label>Password: </label>
+	 	<input type="password" name="password">
+	 	<input type="submit" value="Login">
+	</form>
+
+<%end%>
+
+

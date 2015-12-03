@@ -1,0 +1,9 @@
+<table>
+	<% @questions.each do |question| %>
+		<tr>
+			<td><%= question.title %></td>
+			<td><%= question.body %></td>
+			<td><%= question.user_id %></td>
+		</tr>
+	<% end %>
+</table>
