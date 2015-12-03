@@ -4,15 +4,19 @@ Name: <%= @user.name %> <br />
 Email: <%= @user.email %> <br />
 Description: <%= @user.description %> <br />
 
-<a href="/users/<%=@user.id%>/edit"><button>Edit profile</button></a>
 
-<form action="/users/<%= @user.id %>" method="post">
-	<input type="hidden" name="_method" value="delete">
-	<input type="submit" value="Delete">
-</form>
+<% if @user.id == session[:user_id] %>
+
+		<a href="/users/<%=@user.id%>/edit"><button>Edit profile</button></a>
+
+		<form action="/users/<%= @user.id %>" method="post">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="Delete">
+		</form>
 
 
-<form action="/logout" method="POST">
-	<input type="hidden" name="_method" value="delete">
-	<input type="submit" value="Logout">
-</form>
+		<form action="/logout" method="POST">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="Logout">
+		</form>
+	<%end%>

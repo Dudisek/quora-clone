@@ -1,5 +1,15 @@
 <h1>LOGIN</h1>
 
+<% if @errors %>
+	<ul>
+			<% if @errors == "email-not-exist" %>
+				<li>Your email is not correct, please insert valid email or <a href="/registration">create a new account.</a></li>
+				<% else%>
+				<li>Password does not match your account, please try it again.</li>
+			<%end%>
+	</ul>
+<% end %>
+
 <form action="/users/login" method="post">
 	<label>Email: </label>
  	<input type="email" name="email">
