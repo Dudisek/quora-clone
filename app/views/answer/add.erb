@@ -1,0 +1,10 @@
+<h2>Create Answer</h2>
+<% if logged_in?%> 
+	<form action="/answers/<%=@question.id%>" method="post">
+		<label>Answer: </label>
+		<textarea type="text" name="comment"></textarea>
+		<input type="submit" name="Create Answer" />
+	</form>
+<% else %>
+<p>Just registered users can create answers - please log in or create a new account</p>
+<% end %>

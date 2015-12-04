@@ -5,7 +5,7 @@ class CreateAnswers < ActiveRecord::Migration
 			t.timestamps null: false
 
 			t.belongs_to :user
-			t.belongs_to :answer
+			t.belongs_to :question
 		end 
 	end
 end

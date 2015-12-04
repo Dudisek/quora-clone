@@ -1,0 +1,39 @@
+<h1>Question</h1>
+
+Title: <%= @question.title %> <br />
+Description: <%= @question.body %> <br />
+	
+	<% if authorization? (@question.user_id)%>
+		<a href="/questions/<%=@question.id%>/edit"><button>Edit question</button></a>
+
+		<form action="/questions/<%= @question.id %>" method="post">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="Delete">
+		</form>
+	<%end%>
+
+<!-- ANSWEEEEEEER CREATE -->
+
+<h2>Create Answer</h2>
+<% if logged_in?%> 
+	<form action="/answers" method="post">
+		<input type="hidden" name="question_id" value="<%=@question.id%>">
+		<label>Answer: </label>
+		<textarea type="text" name="comment"></textarea>
+		<input type="submit" name="Create Answer" />
+	</form>
+<% else %>
+<p>Just registered users can create answers - please log in or create a new account</p>
+<% end %>
+
+<h2>Answers:</h2>
+
+<%@answers.each do |a| %>
+	<% if a.question_id == @question.id %>
+	Answer:<%= a.comment %><br />
+			<% if authorization? (a.user_id)%>
+			<button>Edit</button>
+			<button>Delete</button>
+			<%end%>
+	<%end%>
+<%end%>
