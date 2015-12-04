@@ -3,6 +3,12 @@
 Title: <%= @question.title %> <br />
 Description: <%= @question.body %> <br />
 	
+<button>Up</button>
+<button>Down</button>
+
+<br />
+<br />
+
 	<% if authorization? (@question.user_id)%>
 		<a href="/questions/<%=@question.id%>/edit"><button>Edit question</button></a>
 
@@ -11,6 +17,8 @@ Description: <%= @question.body %> <br />
 			<input type="submit" value="Delete">
 		</form>
 	<%end%>
+
+
 
 <!-- ANSWEEEEEEER CREATE -->
 
@@ -29,7 +37,7 @@ Description: <%= @question.body %> <br />
 
 <%@answers.each do |a| %>
 	<% if a.question_id == @question.id %>
-	Answer:<%= a.comment %><br />
+	Answer: <%= a.comment %><br />
 			<% if authorization? (a.user_id)%>
 			<button type="button" class="btn btn-default">Edit</button>
 			<button>Delete</button>

@@ -58,4 +58,8 @@ get "/questions/:id" do
 	erb :"question/view"
 end
 
+# VOTES UP
+# VOTES DOWN
+
+
 

@@ -15,6 +15,8 @@ Description: <%= @user.description %> <br />
 			<input type="submit" value="Delete">
 		</form>
 
+		
+<!-- LOG-OUT -->
 
 		<form action="/logout" method="POST">
 			<input type="hidden" name="_method" value="delete">
@@ -26,7 +28,6 @@ Description: <%= @user.description %> <br />
 <!-- QUESTIONS -->
 
 <h2>Questions</h2>
-
 <% @user.questions.each do |q| %>	
 <ul>
 <li>Question: <%= q.title %></li>
