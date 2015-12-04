@@ -11,21 +11,8 @@ post '/answers' do
 		redirect "/questions/#{@answer.question_id}"
 		# redirect "/q/#{current_user.id}"
 	else
-		@error = question.errors.full_messages
-		erb :"question/create"
+		@error = "Please type your answer first."
+		redirect "/questions/#{@answer.question_id}?errors=#{@error}"
 	end
-end
-
-
-
-# CREATE QUESTION
-post '/questions' do	
-	@user = current_user
-	question = current_user.questions.new(title: params[:title], body: params[:body])
-  if question.save
-		redirect "/questions/#{question.id}"
-	else
-		@error = question.errors.full_messages
-		erb :"question/create"
-	end
+		# /users/login?errors=#{@errors}
 end
