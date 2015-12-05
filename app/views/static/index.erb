@@ -1,15 +1,38 @@
-<h1>Welcome our World</h1>
-<p></p>
+
+<div class="col-md-8">
+
+		<div class="page-header">
+		  <h1>Top stories for you</h1> 
+		</div>	
+
+
+			<div class="media">
+			<div class="media-body">
+			
+				<%@top_stories.each do |a|%>
+					<h4 class="media-heading">
+						<%by = User.find(a.user_id)%>
+						<%= a.title %><small> by <a href="users/<%=by.id%>"><%=by.name%></a></small>
+
+					</h4>	
+						<%= a.body %><br /><br />
+				<%end%>	
+			</div>				
+
+		</div> <!-- page header -->
+</div> <!-- col-md-8 -->
+
+
 
 
 <% if logged_in?%> 
-	<p>Welcome 
-		<%=current_user.name%> 
-	</P>
+
 <% else %> 
 
-	<h1>LOGIN</h1>
+<div class="col-md-4">.col-md-4
 
+
+	<div class="jumbotron">
 	<form action="/users/login" method="post">
 		<label>Email: </label>
 	 	<input type="email" name="email">
@@ -17,7 +40,14 @@
 	 	<input type="password" name="password">
 	 	<input type="submit" value="Login">
 	</form>
+	  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+	</div>
+	<h1>LOGIN</h1>
+
+
+
 
 <%end%>
 
 
+</div>

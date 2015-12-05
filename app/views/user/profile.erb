@@ -8,21 +8,10 @@ Description: <%= @user.description %> <br />
 <!-- visible just if logged -->
 
 <% if authorization? (@user.id)%>
+
 		<a href="/users/<%=@user.id%>/edit"><button>Edit profile</button></a>
 
-		<form action="/users/<%= @user.id %>" method="post">
-			<input type="hidden" name="_method" value="delete">
-			<input type="submit" value="Delete">
-		</form>
-
-		
-<!-- LOG-OUT -->
-
-		<form action="/logout" method="POST">
-			<input type="hidden" name="_method" value="delete">
-			<input type="submit" value="Logout">
-		</form>
-	<%end%>
+<%end%>
 
 
 <!-- QUESTIONS -->
@@ -33,13 +22,31 @@ Description: <%= @user.description %> <br />
 <li>Question: <%= q.title %></li>
 <li>Description: <%= q.body %></li>
 <% if logged_in? %>
-		<a href="/questions/<%=q.id%>/edit"><button>Edit Question</button></a>
 
-		<form action="/questions/<%=q.id%>" method="post">
+	<div class="dropdown">
+	  <button class="btn btn-default dropdown-toggle glyphicon glyphicon-cog" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	    <li><a href="/questions/<%=q.id%>/edit"><button>Edit Question</button></a></li>
+	    <li><form action="/questions/<%=q.id%>" method="post">
 			<input type="hidden" name="_method" value="delete">
-			<input type="submit" value="Delete">
-		</form>
+			<input type="submit" value="Delete Profile">
+		</form></li>
+
+		
+
+	  </ul>
+	</div>
+
+
+
+		
+
 <% end %>		
 </ul>
 <% end %>
 <a href="/questions/create"><button>Create Question</button></a>
+
+
+

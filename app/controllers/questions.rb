@@ -51,7 +51,6 @@ delete "/questions/:id" do
 	end
 end
 
-
 # VIEW QUESTION
 get "/questions/:id" do
 	@answers = Answer.all # PASSING ANSWERS TO DISPLAY
