@@ -18,6 +18,9 @@ gem 'sinatra-activerecord'
 # Adding Database elements
 gem 'pg'
 
+# TIME AGO
+gem 'time_ago_in_words'
+
 # Adding rake for management
 gem 'rake'
 gem 'byebug'

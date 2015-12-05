@@ -12,7 +12,9 @@
 				<%@top_stories.each do |a|%>
 					<h4 class="media-heading">
 						<%by = User.find(a.user_id)%>
-						<%= a.title %><small> by <a href="users/<%=by.id%>"><%=by.name%></a></small>
+						<%= a.title %>
+						<small> by <a href="users/<%=by.id%>"><%=by.name%></a> 
+						<%= (a.created_at).ago_in_words%> </small>
 
 					</h4>	
 						<%= a.body %><br /><br />

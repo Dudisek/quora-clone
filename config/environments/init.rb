@@ -21,6 +21,9 @@ require "sinatra/reloader" if development?
 require 'erb'
 require 'uri'
 
+	# TIME AGO
+require 'time_ago_in_words'
+
 ######################################################################
 require 'byebug'
 

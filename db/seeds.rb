@@ -5,12 +5,12 @@ end
 
 # SEED QUESTION
 100.times do
-Question.create(title: Faker::Book.title, body: Faker::Lorem.paragraph, user_id: Faker::Number.between(1, 100),)
+Question.create(title: Faker::Book.title, body: Faker::Lorem.paragraph, created_at: Faker::Time.between(DateTime.now - 1000, DateTime.now), user_id: Faker::Number.between(1, 100),)
 end
 
 # SEED ANSWER
 300.times do
-Answer.create(comment: Faker::Lorem.paragraph, user_id: Faker::Number.between(1, 200), question_id: Faker::Number.between(1, 100))
+Answer.create(comment: Faker::Lorem.paragraph, user_id: Faker::Number.between(1, 200), created_at: Faker::Time.between(DateTime.now - 1000, DateTime.now), question_id: Faker::Number.between(1, 100))
 end
 
 # SEED QVOTES
