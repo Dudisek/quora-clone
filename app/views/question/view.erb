@@ -4,6 +4,18 @@ Title: <%= @question.title %> <br />
 Description: <%= @question.body %> <br />
 	
 <button>Up</button>
+
+
+	<form action="/upvote/<%= @question.id %>" method="post">
+		<input type="hidden" name="question_id" value="<%=@question.id%>">
+		<input type="submit" name="Upvote" />
+	</form>
+
+
+
+<%=@question.qvotes.where(upvote: 1).count%>
+
+
 <button>Down</button>
 
 <br />

@@ -51,6 +51,7 @@ delete "/questions/:id" do
 	end
 end
 
+
 # VIEW QUESTION
 get "/questions/:id" do
 	@answers = Answer.all # PASSING ANSWERS TO DISPLAY
@@ -59,6 +60,14 @@ get "/questions/:id" do
 end
 
 # VOTES UP
+post "/upvote/:id" do
+	byebug
+	q = Qvote.create(upvote: 1, question_id: params[:question_id])
+	redirect "/questions/#{q.question_id}"
+end
+
+
+
 # VOTES DOWN
 
 
