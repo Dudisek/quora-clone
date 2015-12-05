@@ -61,14 +61,16 @@ end
 
 # VOTES UP
 post "/upvote/:id" do
-	byebug
 	q = Qvote.create(upvote: 1, question_id: params[:question_id])
 	redirect "/questions/#{q.question_id}"
 end
 
-
-
 # VOTES DOWN
+
+post "/downvote/:id" do
+	q = Qvote.create(downvote: 1, question_id: params[:question_id])
+	redirect "/questions/#{q.question_id}"
+end
 
 
 

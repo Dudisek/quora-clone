@@ -3,20 +3,24 @@
 Title: <%= @question.title %> <br />
 Description: <%= @question.body %> <br />
 	
-<button>Up</button>
 
-
-	<form action="/upvote/<%= @question.id %>" method="post">
-		<input type="hidden" name="question_id" value="<%=@question.id%>">
-		<input type="submit" name="Upvote" />
-	</form>
-
-
+<!-- UPVOTE -->
 
 <%=@question.qvotes.where(upvote: 1).count%>
+	<form action="/upvote/<%= @question.id %>" method="post">
+		<input type="hidden" name="question_id" value="<%=@question.id%>">
+		<input type="submit" value="Up" name="Upvote" />
+	</form>
 
+<!-- DOWNVOTE -->
 
-<button>Down</button>
+	<form action="/downvote/<%= @question.id %>" method="post">
+		<input type="hidden" name="question_id" value="<%=@question.id%>">
+		<input type="submit" value="Down" name="Downvote" />
+	</form>
+<%=@question.qvotes.where(downvote: 1).count%>
+
+<!--  -->
 
 <br />
 <br />
