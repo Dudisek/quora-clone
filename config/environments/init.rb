@@ -27,6 +27,8 @@ require 'byebug'
 # Passsword
 require 'bcrypt'
 
+# FAKER data
+require 'faker'
 # System Setup
 ######################################################################
 # Setup app root folder and name

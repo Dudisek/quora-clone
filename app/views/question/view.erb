@@ -4,7 +4,7 @@ Title: <%= @question.title %> <br />
 Description: <%= @question.body %> <br />
 	
 
-<!-- UPVOTE -->
+<!-- QUESTIONS UPVOTE -->
 
 <%=@question.qvotes.where(upvote: 1).count%>
 	<form action="/upvote/<%= @question.id %>" method="post">
@@ -49,14 +49,31 @@ Description: <%= @question.body %> <br />
 <p>Just registered users can create answers - please log in or create a new account</p>
 <% end %>
 
+<!-- ANSWEEEEEER SHOW -->
+
 <h2>Answers:</h2>
 
-<%@answers.each do |a| %>
-	<% if a.question_id == @question.id %>
-	Answer: <%= a.comment %><br />
+<%@question.answers.each do |a| %>
+Answer: <%=a.comment%> 
 			<% if authorization? (a.user_id)%>
 			<button type="button" class="btn btn-default">Edit</button>
 			<button>Delete</button>
 			<%end%>
-	<%end%>
 <%end%>
+
+<!-- ANSWER UPVOTE -->
+
+<%=@question.qvotes.where(upvote: 1).count%>
+	<form action="/upvote/<%= @question.id %>" method="post">
+		<input type="hidden" name="question_id" value="<%=@question.id%>">
+		<input type="submit" value="Up" name="Upvote" />
+	</form>
+
+<!-- ANSWER DOWNVOTE -->
+
+	<form action="/downvote/<%= @question.id %>" method="post">
+		<input type="hidden" name="question_id" value="<%=@question.id%>">
+		<input type="submit" value="Down" name="Downvote" />
+	</form>
+<%=@question.qvotes.where(downvote: 1).count%>
+

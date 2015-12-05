@@ -3,7 +3,7 @@
 		<tr>
 			<td><%= question.title %></td>
 			<td><%= question.body %></td>
-			<td><%= question.user_id %></td>
+			<td><a href="users/<%=question.user_id%>"><%= question.user_id %></a></td>
 		</tr>
 	<% end %>
 </table>

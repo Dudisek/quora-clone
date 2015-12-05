@@ -21,6 +21,9 @@ gem 'pg'
 # Adding rake for management
 gem 'rake'
 gem 'byebug'
+
+#FAKER seeding data
+gem 'faker'
 # Adding rspec for running unit testing
 gem 'rspec'
 
