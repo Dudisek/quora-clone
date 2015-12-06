@@ -70,14 +70,14 @@
 				
 					<a href="users/<%=current_user.id%>">Edit</a> or 
 				
-					<a href="questions/create">Create Question</a>
+					<a href="#" data-toggle="modal" data-target="#AskQuestionButton">Ask New Question</a>
 
 				</small></em></div><br><br>
 			
 			<%else%>
 			<p>Hello <%=current_user.name%>,</p>
-			<p>you did not ask any questions yet.</p><br>
-			<a href="questions/create"><button type="button" class="btn btn-primary">Create a Question now</button></a><br><br><br>
+			<p>you did not ask any question yet.</p><br>
+			<a href="#" data-toggle="modal" data-target="#AskQuestionButton"><button type="button" class="btn btn-primary">Create a Question now</button></a><br><br><br>
 			<p>Need help?</p><br>
 			<ol>
 				<li><a href="#">1. Why start?</a></li><br>
