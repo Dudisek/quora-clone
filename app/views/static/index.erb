@@ -17,13 +17,20 @@
 		</div> <!-- panel-heading -->
 
 
-		 <div class="panel-body"><p><%= a.body %></p><br /><br /></div>
+	 		<div class="panel-body"
+	 			 <%if a.body.length >= 200%>
+	 			 <p><%=a.body + "  ..."%></p><br /><br />
+	 			 <%else%>
+	 			 <p><%= a.body %></p><br /><br />
+	 			 <%end%>
+			</div>
+
 			 <div class="panel-footer">
-			 			<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | 4</button>
+			 			<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.qvotes.where(downvote: 1).count%></button>
 						<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
 					
 					<div class="pull-right">
-						<a href="#">Answers: </a><span class="badge"><%=a.answers.count%></span>
+						<a href="questions/<%=a.id%>">Answers: </a><span class="badge"><%=a.answers.count%></span>
 					</div>
 			 </div>
 		</div> <!-- panel-default -->
@@ -33,18 +40,58 @@
 
 
 
-
-<% if logged_in?%> 
-	<div class="page-header">
-		<h1>Your Questions</h1>
-	</div>
-
-<% else %> 
-
 <div class="col-md-4">
+
 		<div class="page-header">
-		<h1>Login</h1>>
+		<h1>User's board</h1>
 		</div>
+	<% if logged_in?%> 
+
+			<div class="form-group jumbotron">
+				
+				<%users_questions = Question.where(user_id: current_user.id).order(id: :desc).limit(5)%>
+				<%if users_questions.count > 0 %>
+					<h4>YOUR QUESTIONS</h4><br />
+					<%users_questions.each do |q|%>
+						<ul class="list-group">	
+						<li class="list-group-item">
+						<span class="badge"><%=q.answers.count%></span>
+							<a href="questions/<%=q.id%>">
+								<%if q.title.length >= 22%>
+								<%=q.title.first(22) + "  ..."%>
+								<%else%>
+								<%=q.title%>
+								<%end%>
+							</a>
+						</li>
+						</ul>	
+					<%end%>
+				<div class="pull-right"><em><small>
+				
+					<a href="users/<%=current_user.id%>">Edit</a> or 
+				
+					<a href="questions/create">Create Question</a>
+
+				</small></em></div><br><br>
+			
+			<%else%>
+			<p>Hello <%=current_user.name%>,</p>
+			<p>you did not ask any questions yet.</p><br>
+			<a href="questions/create"><button type="button" class="btn btn-primary">Create a Question now</button></a><br><br><br>
+			<p>Need help?</p><br>
+			<ol>
+				<li><a href="#">1. Why start?</a></li><br>
+				<li><a href="#">2. How to ask question</a></li><br>
+				<li><a href="#">3. Help our community</a></li><br>
+				<li><a href="#">4. Go level up</a></li><br>
+			</ol>
+
+				
+			<%end%>					
+			</div>
+	<%else%>
+
+
 <!-- 	<div class="jumbotron">	 -->
 		<div class="form-group jumbotron">
 			
@@ -56,14 +103,11 @@
 			 	<br />
 			 	<input type="submit" class="btn btn-primary" value="Login">
 			</form>
-			<br>
-		  <a href="users/g">No acoount? Create an account now</p>
-		
+			<br><br>
+		  <a href="users/g">No account yet? Create a new account</p>
 		</div>
 	<!-- </div> -->
-
-
-<%end%>
-
-
+	<%end%>
 </div>
+
+
