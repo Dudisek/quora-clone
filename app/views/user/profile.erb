@@ -1,7 +1,9 @@
 <div class="container">
   <br>
   <div class="jumbotron">
-<div class="pull-right"><a href="#" data-toggle="modal" data-target="#EditProfileButton"><button type="button" class="btn btn-primary glyphicon glyphicon-cog"></button></a></div>
+  	<% if authorization? (@user.id)%>
+	<div class="pull-right"><a href="#" data-toggle="modal" data-target="#EditProfileButton"><button type="button" class="btn btn-primary glyphicon glyphicon-cog"></button></a></div>
+	<%end%>	
  	<div class="bs-callout bs-callout-danger" >
 	
     <p class="glyphicon glyphicon-user"><strong> <%= @user.name %></strong></p><br>
@@ -15,10 +17,86 @@
   	
   </div>
   <div class="row">
+      
+        <!-- QUESITOOOOOOONS  -->
+
     <div class="col-sm-4">
-      <h3>Your questions</h3>
+      <% if authorization? (@user.id)%>
+      	<h3>Your questions</h3>
+      <%else%>
+      	<h3>User's questions</h3>
+      <%end%>
 			<br />
 			
+		<%@user.questions.each do |q|%>
+		<ul class="list-group">	
+		<li class="list-group-item">
+			
+				
+
+			<% if authorization? (@user.id)%>
+			<span class="pull-right">
+				<div class="dropdown">
+				  <button class="btn btn-default dropdown-toggle glyphicon glyphicon-cog btn-xs btn btn-primary" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				    <li><a href="/questions/<%=q.id%>/edit"><button class="btn btn-success">Edit Question</button></a></li>
+				    <li><form action="/questions/<%=q.id%>" method="post">
+						<input type="hidden" name="_method" value="delete">
+						<input class="btn btn-danger" type="submit" value="Delete Profile">
+					</form></li>
+				  </ul>
+				</div>
+			</span>
+			<%else%>
+			<span class="badge"><%=q.answers.count%></span>
+			<% end %>	
+
+			<a href="/questions/<%=q.id%>">
+				<%if q.title.length >= 22%>
+				<%=q.title.first(22) + "  ..."%>
+				<%else%>
+				<%=q.title%>
+				<%end%>
+			</a>
+		</li>
+		</ul>
+		<%end%>
+    </div>
+
+<!-- ANSWEEEEEERRS -->
+
+    <div class="col-sm-4">
+      <% if authorization? (@user.id)%>
+      	<h3>Your answers</h3>
+      <%else%>
+      	<h3>User's answers</h3>
+      <%end%>
+			<br>
+		<%user_answers =  @user.answers.all%>
+
+		<%user_answers.each do |a|%>
+
+		<ul class="list-group">	
+		<li class="list-group-item">
+			<a href="/questions/<%=a.question_id%>">
+				<%if a.comment.length >= 22%>
+				<%=a.comment.first(22) + "  ..."%>
+				<%else%>
+				<%=a.comment%>
+				<%end%>
+			</a>
+		</li>
+		</ul>
+		<%end%>
+    </div>
+
+<!-- RECENT ACTIVITIIIIIES -->
+
+    <div class="col-sm-4">
+      <h3>Most Popular</h3>  <br>      
+
 		<%@user.questions.each do |q|%>
 		<ul class="list-group">	
 		<li class="list-group-item">
@@ -34,70 +112,5 @@
 		</ul>
 		<%end%>
     </div>
-
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>        
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
   </div>
 </div>
-
-
-
-
-<h1>Profile</h1>
-
-
-
-<!-- BUTTONS LOGOUT, DELETE, EDIT -->
-<!-- visible just if logged -->
-
-<% if authorization? (@user.id)%>
-
-		<a href="/users/<%=@user.id%>/edit"><button>Edit profile</button></a>
-
-<%end%>
-
-
-<!-- QUESTIONS -->
-
-<h2>Questions</h2>
-<% @user.questions.each do |q| %>	
-<ul>
-<li>Question: <%= q.title %></li>
-<li>Description: <%= q.body %></li>
-<% if authorization? (@user.id)%>
-
-	<div class="dropdown">
-	  <button class="btn btn-default dropdown-toggle glyphicon glyphicon-cog" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-	    <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	    <li><a href="/questions/<%=q.id%>/edit"><button>Edit Question</button></a></li>
-	    <li><form action="/questions/<%=q.id%>" method="post">
-			<input type="hidden" name="_method" value="delete">
-			<input type="submit" value="Delete Profile">
-		</form></li>
-
-		
-
-	  </ul>
-	</div>
-
-<a href="/questions/create"><button>Create Question</button></a>
-
-		
-
-<% end %>		
-</ul>
-<% end %>
-
-
-
-
