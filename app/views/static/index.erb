@@ -26,7 +26,9 @@
 			</div>
 
 			 <div class="panel-footer">
-			 			<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.qvotes.where(downvote: 1).count%></button>
+			 
+
+			 			<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.qvotes.where(upvote: 1).count%></button>
 						<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
 					
 					<div class="pull-right">
