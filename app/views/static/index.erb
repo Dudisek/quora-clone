@@ -19,9 +19,9 @@
 
 	 		<div class="panel-body"
 	 			 <%if a.body.length >= 200%>
-	 			 <p><%=a.body + "  ..."%></p><br /><br />
+	 			 <p><%=a.body + "  ..."%></p>
 	 			 <%else%>
-	 			 <p><%= a.body %></p><br /><br />
+	 			 <p><%= a.body %></p>
 	 			 <%end%>
 			</div>
 
@@ -104,7 +104,7 @@
 			 	<input type="submit" class="btn btn-primary" value="Login">
 			</form>
 			<br><br>
-		  <a href="users/g">No account yet? Create a new account</p>
+			<a href="#" data-toggle="modal" data-target="#RegistrationButton">No account yet? Create a new account</a>
 		</div>
 	<!-- </div> -->
 	<%end%>
