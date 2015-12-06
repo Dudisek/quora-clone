@@ -1,52 +1,66 @@
 
 <div class="col-md-8">
+	<div class="page-header">
+	  <h1>Top stories for you</h1> 
+	</div>	<!-- page-header -->
 
-		<div class="page-header">
-		  <h1>Top stories for you</h1> 
-		</div>	
-
-
-			<div class="media">
-			<div class="media-body">
+<!-- <div class="bs-callout bs-callout-danger" > <h3>Alternate elements</h3> <p>Feel free to use <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> in HTML5. <code>&lt;b&gt;</code> is meant to highlight words or phrases without conveying additional importance while <code>&lt;i&gt;</code> is mostly for voice, technical terms, etc.</p> </div> -->
 			
-				<%@top_stories.each do |a|%>
-					<h4 class="media-heading">
-						<%by = User.find(a.user_id)%>
-						<%= a.title %>
-						<small> by <a href="users/<%=by.id%>"><%=by.name%></a> 
-						<%= (a.created_at).ago_in_words%> </small>
+	<%@top_stories.each do |a|%>
+		<div class="panel panel-default">
+			<%by = User.find(a.user_id)%>
+		<div class="panel-heading"><b><a href="questions/<%=a.id%>"><%= a.title %></a></b>
+			
+			<div class="pull-right"><small> by <a href="users/<%=a.id%>"><%=by.name%></a>, </small>
+			 <p class="glyphicon glyphicon-time" data-toggle="tooltip" data-placement="top" title="<%=(a.created_at).ago_in_words%>"></p>
+			</div> <!-- pull right -->
+		</div> <!-- panel-heading -->
 
-					</h4>	
-						<%= a.body %><br /><br />
-				<%end%>	
-			</div>				
 
-		</div> <!-- page header -->
+		 <div class="panel-body"><p><%= a.body %></p><br /><br /></div>
+			 <div class="panel-footer">
+			 			<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | 4</button>
+						<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
+					
+					<div class="pull-right">
+						<a href="#">Answers: </a><span class="badge"><%=a.answers.count%></span>
+					</div>
+			 </div>
+		</div> <!-- panel-default -->
+	<%end%>			
 </div> <!-- col-md-8 -->
 
 
 
 
+
 <% if logged_in?%> 
+	<div class="page-header">
+		<h1>Your Questions</h1>
+	</div>
 
 <% else %> 
 
-<div class="col-md-4">.col-md-4
-
-
-	<div class="jumbotron">
-	<form action="/users/login" method="post">
-		<label>Email: </label>
-	 	<input type="email" name="email">
-	 	<label>Password: </label>
-	 	<input type="password" name="password">
-	 	<input type="submit" value="Login">
-	</form>
-	  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-	</div>
-	<h1>LOGIN</h1>
-
-
+<div class="col-md-4">
+		<div class="page-header">
+		<h1>Login</h1>>
+		</div>
+<!-- 	<div class="jumbotron">	 -->
+		<div class="form-group jumbotron">
+			
+			<form action="/users/login" method="post">
+				<p>Login</p><br />
+			 	<input type="email" class="form-control" placeholder="Email" name="email">
+			<br />
+			 	<input type="password" class="form-control" placeholder="Password" name="password">
+			 	<br />
+			 	<input type="submit" class="btn btn-primary" value="Login">
+			</form>
+			<br>
+		  <a href="users/g">No acoount? Create an account now</p>
+		
+		</div>
+	<!-- </div> -->
 
 
 <%end%>

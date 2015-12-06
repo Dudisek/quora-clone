@@ -21,7 +21,7 @@ Description: <%= @user.description %> <br />
 <ul>
 <li>Question: <%= q.title %></li>
 <li>Description: <%= q.body %></li>
-<% if logged_in? %>
+<% if authorization? (@user.id)%>
 
 	<div class="dropdown">
 	  <button class="btn btn-default dropdown-toggle glyphicon glyphicon-cog" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -39,14 +39,14 @@ Description: <%= @user.description %> <br />
 	  </ul>
 	</div>
 
-
+<a href="/questions/create"><button>Create Question</button></a>
 
 		
 
 <% end %>		
 </ul>
 <% end %>
-<a href="/questions/create"><button>Create Question</button></a>
+
 
 
 

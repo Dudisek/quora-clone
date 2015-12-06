@@ -18,6 +18,8 @@ Description: <%= @question.body %> <br />
 		<input type="hidden" name="question_id" value="<%=@question.id%>">
 		<input type="submit" value="Down" name="Downvote" />
 	</form>
+
+	
 <%=@question.qvotes.where(downvote: 1).count%>
 
 <!--  -->
