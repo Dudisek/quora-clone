@@ -177,6 +177,50 @@
 </div>
 <!-- END OF MODULE  CREATE A QUESTION   FORM -->
 
+<!-- EDIT FORM -->
+<%unless @user.nil?%>
+
+<div class="modal fade" id="EditProfileButton" tabindex="-1" role="dialog" aria-labelledby="EditProfileButtonLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="EditProfileButtonLabel">Edit Profile</h4>
+      </div>
+      <div class="modal-body">
+<form action="/users/<%= @user.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+          <div class="form-group">
+          <label for="name" class="control-label">Username: </label>
+            <input type="text" value="<%=@user.name%>" class="form-control" name="name"><br>
+            <label for="email" class="control-label">Email: </label>
+             <input type="email" value="<%=@user.email%>" class="form-control" name="email">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Description:</label>
+            <textarea class="form-control" name="description" id="message-text"><%=@user.description%></textarea>
+          </div><br>
+          <label for="email" class="control-label">Confirm your password:</label>
+          <div class="form-group">
+            <input type="password" name="password" value="<%=@user.password%>"><br />
+          </div>
+
+      </div>
+      <div class="modal-footer">
+      <div class="pull-left"><input type="submit" value="Delete your Account" class="btn btn-danger"></input></div>
+        <input type="submit" value="Update it" class="btn btn-primary"></input>
+
+
+
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Back</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%end%>
+<!-- EDIT FORM END  -->
+
 
 <div class="container">
 

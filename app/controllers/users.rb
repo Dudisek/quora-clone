@@ -70,6 +70,7 @@ patch "/users/:id" do
 	user = User.find(params[:id])
 	if current_user.id == user.id	
 		user.update(name: params[:name], email: params[:email], password: params[:password], description: params[:description])
+		user.save	
 		redirect "/users/#{user.id}"
 	else
 		erb :"404"
