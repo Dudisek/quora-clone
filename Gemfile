@@ -18,6 +18,10 @@ gem 'sinatra-activerecord'
 # Adding Database elements
 gem 'pg'
 
+
+# PAGINATION
+gem 'will_paginate'
+
 # TIME AGO
 gem 'time_ago_in_words'
 

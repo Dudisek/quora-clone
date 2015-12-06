@@ -5,16 +5,16 @@
 	</div>	<!-- page-header -->
 
 <!-- <div class="bs-callout bs-callout-danger" > <h3>Alternate elements</h3> <p>Feel free to use <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> in HTML5. <code>&lt;b&gt;</code> is meant to highlight words or phrases without conveying additional importance while <code>&lt;i&gt;</code> is mostly for voice, technical terms, etc.</p> </div> -->
-			
+	
 	<%@top_stories.each do |a|%>
 		<div class="panel panel-default">
 			<%by = User.find(a.user_id)%>
-		<div class="panel-heading"><b><a href="questions/<%=a.id%>"><%= a.title %></a></b>
-			
-			<div class="pull-right"><small> by <a href="users/<%=a.id%>"><%=by.name%></a>, </small>
-			 <p class="glyphicon glyphicon-time" data-toggle="tooltip" data-placement="top" title="<%=(a.created_at).ago_in_words%>"></p>
-			</div> <!-- pull right -->
-		</div> <!-- panel-heading -->
+			<div class="panel-heading"><b><a href="questions/<%=a.id%>"><%= a.title %></a></b>
+				
+				<div class="pull-right"><small> by <a href="users/<%=a.id%>"><%=by.name%></a>, </small>
+				 <p class="glyphicon glyphicon-time" data-toggle="tooltip" data-placement="top" title="<%=(a.created_at).ago_in_words%>"></p>
+				</div> <!-- pull right -->
+			</div> <!-- panel-heading -->
 
 
 	 		<div class="panel-body"
@@ -32,12 +32,15 @@
 					<div class="pull-right">
 						<a href="questions/<%=a.id%>">Answers: </a><span class="badge"><%=a.answers.count%></span>
 					</div>
-			 </div>
+			 </div>			 
 		</div> <!-- panel-default -->
-	<%end%>			
+	<%end%>		
+		<nav>
+			<ul class="pagination">
+				<%= will_paginate @top_stories%>
+			</ul>
+		</nav>
 </div> <!-- col-md-8 -->
-
-
 
 
 <div class="col-md-4">

@@ -80,6 +80,7 @@ GEM
     time_ago_in_words (0.1.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    will_paginate (3.0.7)
 
 PLATFORMS
   ruby
@@ -101,6 +102,7 @@ DEPENDENCIES
   sinatra-contrib
   thin
   time_ago_in_words
+  will_paginate
 
 BUNDLED WITH
    1.10.6

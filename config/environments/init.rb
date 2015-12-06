@@ -21,6 +21,9 @@ require "sinatra/reloader" if development?
 require 'erb'
 require 'uri'
 
+	# PAGINATION
+require 'will_paginate'
+require 'will_paginate/active_record'
 	# TIME AGO
 require 'time_ago_in_words'
 

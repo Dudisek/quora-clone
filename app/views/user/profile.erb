@@ -1,14 +1,40 @@
 <div class="container">
+  <br>
   <div class="jumbotron">
-    <h1>My First Bootstrap Page</h1>
-    <p>Resize this responsive page to see the effect!</p> 
+<div class="pull-right"><button type="button" class="btn btn-primary glyphicon glyphicon-cog"></button></div>
+ 	<div class="bs-callout bs-callout-danger" >
+	
+    <p class="glyphicon glyphicon-user"><strong> <%= @user.name %></strong></p><br>
+	<p class="glyphicon glyphicon-envelope"> <%= @user.email %> </p><br><br><br>
+	<p>Quesitons: <%=@user.questions.count%></p>
+	<p>Answers: <%=@user.answers.count%></p><br><br>
+	<blockquote><p><strong>About me</strong></p><p> <%= @user.description %></p> </blockquote><br>
+
+
+	</div>
+  	
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+      <h3>Your questions</h3>
+			<br />
+			
+		<%@user.questions.each do |q|%>
+		<ul class="list-group">	
+		<li class="list-group-item">
+			<span class="badge"><%=q.answers.count%></span>
+			<a href="questions/<%=q.id%>">
+				<%if q.title.length >= 22%>
+				<%=q.title.first(22) + "  ..."%>
+				<%else%>
+				<%=q.title%>
+				<%end%>
+			</a>
+		</li>
+		</ul>
+		<%end%>
     </div>
+
     <div class="col-sm-4">
       <h3>Column 2</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
@@ -23,11 +49,11 @@
 </div>
 
 
+
+
 <h1>Profile</h1>
 
-Name: <%= @user.name %> <br />
-Email: <%= @user.email %> <br />
-Description: <%= @user.description %> <br />
+
 
 <!-- BUTTONS LOGOUT, DELETE, EDIT -->
 <!-- visible just if logged -->
