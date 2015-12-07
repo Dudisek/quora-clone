@@ -3,14 +3,14 @@
 
 <div class="col-md-8">
 	<div class="page-header">
-	  <h1>Top stories for you</h1> 
+	  <h1>Question</h1> 
 	</div>	<!-- page-header -->
 
-<div class="panel panel-warning">
+<div class="panel panel-default">
 	<%by = User.find(@question.user_id)%>
 	<div class="panel-heading"><b><%= @question.title %></a></b>
 		
-		<div class="pull-right"><small> by <a href="users/<%=@question.user_id%>"><%=by.name%></a>, </small>
+		<div class="pull-right"><small> by <a href="/users/<%=@question.user_id%>"><%=by.name%></a>, </small>
 		 <p class="glyphicon glyphicon-time" data-toggle="tooltip" data-placement="top" title="<%=(@question.created_at).ago_in_words%>"></p>
 		</div> <!-- pull right -->
 	</div> <!-- panel-heading -->
@@ -23,7 +23,7 @@
 	<div class="panel-footer">
 	 
 
-	 			<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=@question.qvotes.where(upvote: 1).count%></button>
+	 			<button type="button" id="like" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=@question.qvotes.where(upvote: 1).count%></button>
 				<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
 			
 			<div class="pull-right">
@@ -35,11 +35,13 @@
 
 <%@question.answers.each do |a| %>
 
+<!-- ANSWEEEEEER SHOW -->
+
 <%by = a.user_id%>
 <%user = User.find(by)%>
 <div class="container">
 <div class="col-sm-8">
-<div class="panel panel-default">
+<div class="panel panel-warning">
 <div class="panel-heading">
 <span class="glyphicon glyphicon-user">&nbsp;</span><strong><a href="/users/<%=user.id%>"><%=user.name%></a></strong><span class="text-muted"> - <%=(a.created_at).ago_in_words%></span>
 </div>
@@ -56,10 +58,29 @@
 <%end%>
 
 
+
+<!-- ANSWEEEEEEER CREATE -->
+
+<% if logged_in?%> 
+	<form action="/answers" method="post">
+		<input type="hidden" name="question_id" value="<%=@question.id%>">
+		<label>Create a new answer: </label><br>
+		<textarea type="text" class="form-control"  rows="3" name="comment"></textarea>
+		<br>
+		<div class="pull-right">
+		<input type="submit" class="btn btn-primary" name="Create Answer" /></div>
+	</form>
+<% else %>
+<p>Just registered users can create answers - please log in or create a new account</p>
+<% end %>
+
+
+
+
 <!-- QUESTIONS UPVOTE -->
 
-<%=@question.qvotes.where(upvote: 1).count%>
-	<form action="/upvote/<%= @question.id %>" method="post">
+<span id = 'upvote_num'> <%=@question.qvotes.where(upvote: 1).count%> </span>
+	<form action="/upvote/<%= @question.id %>" method="post" class="like">
 		<input type="hidden" name="question_id" value="<%=@question.id%>">
 		<input type="submit" value="Up" name="Upvote" />
 	</form>
@@ -74,7 +95,6 @@
 	
 <%=@question.qvotes.where(downvote: 1).count%>
 
-<!--  -->
 
 <br />
 <br />
@@ -89,27 +109,10 @@
 	<%end%>
 
 
-
-<!-- ANSWEEEEEEER CREATE -->
-
-<% if logged_in?%> 
-	<form action="/answers" method="post">
-		<input type="hidden" name="question_id" value="<%=@question.id%>">
-		<label>Answer: </label>
-		<textarea type="text" name="comment"></textarea>
-		<input type="submit" name="Create Answer" />
-	</form>
-<% else %>
-<p>Just registered users can create answers - please log in or create a new account</p>
-<% end %>
-
-<!-- ANSWEEEEEER SHOW -->
-
-
 <!-- ANSWER UPVOTE -->
 
 <%=@question.qvotes.where(upvote: 1).count%>
-	<form action="/upvote/<%= @question.id %>" method="post">
+	<form action="/upvote/<%= @question.id %>" method="post" id="ajax">
 		<input type="hidden" name="question_id" value="<%=@question.id%>">
 		<input type="submit" value="Up" name="Upvote" />
 	</form>
@@ -122,6 +125,80 @@
 	</form>
 <%=@question.qvotes.where(downvote: 1).count%>
 
+</div>
+
+
+<!-- LEFT SIDE  -->
+
+<div class="col-md-4">
+
+		<div class="page-header">
+		<h1>User's board</h1>
+		</div>
+	<% if logged_in?%> 
+
+			<div class="form-group jumbotron">
+				
+				<%users_questions = Question.where(user_id: current_user.id).order(id: :desc).limit(5)%>
+				<%if users_questions.count > 0 %>
+					<h4>YOUR QUESTIONS</h4><br />
+					<%users_questions.each do |q|%>
+						<ul class="list-group">	
+						<li class="list-group-item">
+						<span class="badge"><%=q.answers.count%></span>
+							<a href="questions/<%=q.id%>">
+								<%if q.title.length >= 22%>
+								<%=q.title.first(22) + "  ..."%>
+								<%else%>
+								<%=q.title%>
+								<%end%>
+							</a>
+						</li>
+						</ul>	
+					<%end%>
+				<div class="pull-right"><em><small>
+				
+					<a href="users/<%=current_user.id%>">Edit</a> or 
+				
+					<a href="#" data-toggle="modal" data-target="#AskQuestionButton">Ask New Question</a>
+
+				</small></em></div><br><br>
+			
+			<%else%>
+			<p>Hello <%=current_user.name%>,</p>
+			<p>you did not ask any question yet.</p><br>
+			<a href="#" data-toggle="modal" data-target="#AskQuestionButton"><button type="button" class="btn btn-primary">Create a Question now</button></a><br><br><br>
+			<p>Need help?</p><br>
+			<ol>
+				<li><a href="#">1. Why start?</a></li><br>
+				<li><a href="#">2. How to ask question</a></li><br>
+				<li><a href="#">3. Help our community</a></li><br>
+				<li><a href="#">4. Go level up</a></li><br>
+			</ol>
+
+				
+			<%end%>					
+			</div>
+	<%else%>
+
+
+<!-- 	<div class="jumbotron">	 -->
+		<div class="form-group jumbotron">
+			
+			<form action="/users/login" class="like" method="post">
+				<p>Login</p><br />
+			 	<input type="email" class="form-control" placeholder="Email" name="email">
+			<br />
+			 	<input type="password" class="form-control" placeholder="Password" name="password">
+			 	<br />
+			 	<input type="submit" class="btn btn-primary" value="Login">
+			</form>
+			<br><br>
+			<a href="#" data-toggle="modal" data-target="#RegistrationButton">No account yet? Create a new account</a>
+		</div>
+	<!-- </div> -->
+	<%end%>
+</div>
 
 
 
