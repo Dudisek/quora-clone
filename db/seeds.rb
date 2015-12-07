@@ -15,7 +15,7 @@ end
 
 # SEED QVOTES
 300.times do
-Qvote.create(upvote: Faker::Number.between(0, 1), downvote: Faker::Number.between(0, 1), question_id: Faker::Number.between(1, 100))
+Qvote.create(upvote: Faker::Number.between(0, 1), downvote: Faker::Number.between(0, 1), question_id: Faker::Number.between(1, 100), user_id: Faker::Number.between(1, 200))
 end
 
 # SEED AVOTES

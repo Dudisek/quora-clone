@@ -60,15 +60,47 @@ end
 
 # VOTES UP
 post "/upvote/:id" do
-	q = Qvote.create(upvote: 1, question_id: params[:question_id])
-	redirect "/questions/#{q.question_id}"
+
+	voting = Qvote.find_by(user_id: current_user, question_id: params[:question_id])
+
+	if voting.nil?
+		q = Qvote.create(upvote: 1, question_id: params[:question_id], user: current_user)
+		redirect "/questions/#{q.question_id}"
+	elsif voting.upvote == 0 || voting.upvote == nil
+		voting.upvote = 1
+		voting.downvote = 0
+		voting.save
+		redirect "/questions/#{voting.question_id}"	
+	elsif voting.upvote == 1
+		voting.upvote = 0
+		voting.save
+		redirect "/questions/#{voting.question_id}"	
+	end
 end
 
 # VOTES DOWN
 
 post "/downvote/:id" do
-	q = Qvote.create(downvote: 1, question_id: params[:question_id])
-	redirect "/questions/#{q.question_id}"
+
+	voting = Qvote.find_by(user_id: current_user, question_id: params[:question_id])
+
+	if voting.nil?
+		q = Qvote.create(downvote: 1, question_id: params[:question_id], user: current_user)
+		redirect "/questions/#{q.question_id}"
+
+	elsif voting.downvote == 0 || voting.downvote == nil
+		voting.downvote = 1
+		voting.upvote = 0
+		voting.save
+		redirect "/questions/#{voting.question_id}"	
+	elsif voting.downvote == 1 
+		voting.downvote = 0
+		voting.save
+		redirect "/questions/#{voting.question_id}"	
+	else
+		puts "\e[31m[LOG: ] VOTING ERROR UNEXPECTED SITUATION"
+		erb :"404"
+	end
 end
 
 

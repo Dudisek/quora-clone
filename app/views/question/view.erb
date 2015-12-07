@@ -6,7 +6,7 @@
 	  <h1>Top stories for you</h1> 
 	</div>	<!-- page-header -->
 
-<div class="panel panel-default">
+<div class="panel panel-warning">
 	<%by = User.find(@question.user_id)%>
 	<div class="panel-heading"><b><%= @question.title %></a></b>
 		
@@ -31,6 +31,29 @@
 			</div>
 	</div>			 
 </div> <!-- panel-default -->
+
+
+<%@question.answers.each do |a| %>
+
+<%by = a.user_id%>
+<%user = User.find(by)%>
+<div class="container">
+<div class="col-sm-8">
+<div class="panel panel-default">
+<div class="panel-heading">
+<span class="glyphicon glyphicon-user">&nbsp;</span><strong><a href="/users/<%=user.id%>"><%=user.name%></a></strong><span class="text-muted"> - <%=(a.created_at).ago_in_words%></span>
+</div>
+<div class="panel-body">
+<%=a.comment%>
+</div><!-- /panel-body -->
+</div><!-- /panel panel-default -->
+</div><!-- /col-sm-5 -->
+</div><!-- /container --> <br><br>
+			<% if authorization? (a.user_id)%>
+			<button type="button" class="btn btn-default">Edit</button>
+			<button>Delete</button>
+			<%end%>
+<%end%>
 
 
 <!-- QUESTIONS UPVOTE -->
@@ -82,15 +105,6 @@
 
 <!-- ANSWEEEEEER SHOW -->
 
-<h2>Answers:</h2>
-
-<%@question.answers.each do |a| %>
-Answer: <%=a.comment%> <br><br>
-			<% if authorization? (a.user_id)%>
-			<button type="button" class="btn btn-default">Edit</button>
-			<button>Delete</button>
-			<%end%>
-<%end%>
 
 <!-- ANSWER UPVOTE -->
 
@@ -107,4 +121,7 @@ Answer: <%=a.comment%> <br><br>
 		<input type="submit" value="Down" name="Downvote" />
 	</form>
 <%=@question.qvotes.where(downvote: 1).count%>
+
+
+
 

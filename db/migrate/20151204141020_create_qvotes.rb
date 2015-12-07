@@ -5,6 +5,7 @@ class CreateQvotes < ActiveRecord::Migration
 			t.integer :downvote
 
 			t.belongs_to :question
+			t.belongs_to :user
 		end
 	end
 end
