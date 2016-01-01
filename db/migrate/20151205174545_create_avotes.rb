@@ -5,6 +5,7 @@ class CreateAvotes < ActiveRecord::Migration
 		t.integer :downvote
 
 		t.belongs_to :answer
+		t.belongs_to :user		
 	end
 	end
 end

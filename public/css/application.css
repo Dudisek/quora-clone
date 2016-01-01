@@ -102,6 +102,12 @@ a < .pagination { color: #555; }
 .paginate a 
 
 
+.form-inline {
+    display: inline;
+}
 
+#include-float {
+    overflow: hidden;
+}
 
 

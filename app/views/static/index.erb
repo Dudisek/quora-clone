@@ -25,16 +25,20 @@
 	 			 <%end%>
 			</div>
 
-			 <div class="panel-footer">
-			 
-
-			 			<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.qvotes.where(upvote: 1).count%></button>
-						<button type="button" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
-					
-					<div class="pull-right">
-						<a href="questions/<%=a.id%>">Answers: </a><span class="badge"><%=a.answers.count%></span>
-					</div>
-			 </div>			 
+			<div class="panel-footer" id="include-float">
+				<form action="upvote/<%= a.id %>"  method="post" id="ajax">
+					<input type="hidden" name="question_id" value="<%=a.id%>">
+					<button type="submit" style="float: left;" id="like" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.qvotes.where(upvote: 1).count%></button>
+				</form>
+				<form action="downvote/<%= a.id %>" method="post">
+					<input type="hidden" name="question_id" style="display: inline;" value="<%=a.id%>">
+					<button type="submit" style="float: left;" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
+				</form>	 
+				
+				<div class="pull-right">
+					<a href="questions/<%=a.id%>">Answers: </a><span class="badge"><%=a.answers.count%></span>
+				</div>
+		  </div>			 
 		</div> <!-- panel-default -->
 	<%end%>		
 				<%= will_paginate @top_stories%>	
