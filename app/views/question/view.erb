@@ -23,11 +23,11 @@
 	<div class="panel-footer" id="include-float">
 		<form action="/upvote/<%= @question.id %>"  method="post" id="ajax">
 			<input type="hidden" name="question_id" value="<%=@question.id%>">
-			<button type="submit" style="float: left;" id="like" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=@question.qvotes.where(upvote: 1).count%></button>
+			<button type="submit" id="like" class="pull-left btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=@question.qvotes.where(upvote: 1).count%></button>
 		</form>
 		<form action="/downvote/<%= @question.id %>" method="post">
 			<input type="hidden" name="question_id" style="display: inline;" value="<%=@question.id%>">
-			<button type="submit" style="float: left;" class="btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
+			<button type="submit" class="pull-left btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
 		</form>	 			
 			
 		<div class="pull-right">
@@ -44,21 +44,32 @@
 <%by = a.user_id%>
 <%user = User.find(by)%>
 <div class="container">
-<div class="col-sm-8">
-<div class="panel panel-warning">
-<div class="panel-heading">
-<span class="glyphicon glyphicon-user">&nbsp;</span><strong><a href="/users/<%=user.id%>"><%=user.name%></a></strong><span class="text-muted"> - <%=(a.created_at).ago_in_words%></span>
-</div>
-<div class="panel-body">
-<%=a.comment%>
-</div><!-- /panel-body -->
-</div><!-- /panel panel-default -->
-</div><!-- /col-sm-5 -->
-</div><!-- /container --> <br><br>
-			<% if authorization? (a.user_id)%>
-			<button type="button" class="btn btn-default">Edit</button>
-			<button>Delete</button>
-			<%end%>
+	<div class="col-sm-8">
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+			
+				<form action="/questions/<%= @question.id %>/answer/<%= a.id %>/downvote" method="post">
+					<input type="hidden" name="question_id" style="display: inline;" value="<%=a.id%>">
+					<button type="submit" class="pull-right btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
+				</form>	 
+
+				<form action="/questions/<%= @question.id %>/answer/<%= a.id %>/upvote"  method="post" id="ajax">
+					<input type="hidden" name="question_id" value="<%=a.id%>">
+					<button type="submit" id="like" class="pull-right btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.avotes.where(upvote: 1).count%></button>
+				</form>
+	
+
+				<span class="glyphicon glyphicon-user pull-left">&nbsp;</span><strong><a href="/users/<%=user.id%>"><%=user.name%></a></strong><span class="text-muted"> - <%=(a.created_at).ago_in_words%></span>
+
+	
+
+			</div>
+				<div class="panel-body">
+				<%=a.comment%>
+				</div><!-- /panel-body -->
+		</div><!-- /panel panel-default -->
+	</div><!-- /col-sm-5 -->
+</div><!-- /container --> 
 <%end%>
 
 
@@ -79,55 +90,9 @@
 <% end %>
 
 
-
-
-<!-- QUESTIONS UPVOTE -->
-
-<span id = 'upvote_num'> <%=@question.qvotes.where(upvote: 1).count%> </span>
-	<form action="/upvote/<%= @question.id %>" method="post" class="like">
-		<input type="hidden" name="question_id" value="<%=@question.id%>">
-		<input type="submit" value="Up" name="Upvote" />
-	</form>
-
-<!-- DOWNVOTE -->
-
-	<form action="/downvote/<%= @question.id %>" method="post">
-		<input type="hidden" name="question_id" value="<%=@question.id%>">
-		<input type="submit" value="Down" name="Downvote" />
-	</form>
-
-	
-<%=@question.qvotes.where(downvote: 1).count%>
-
-
-<br />
-<br />
-
-	<% if authorization? (@question.user_id)%>
-		<a href="/questions/<%=@question.id%>/edit"><button>Edit question</button></a>
-
-		<form action="/questions/<%= @question.id %>" method="post">
-			<input type="hidden" name="_method" value="delete">
-			<input type="submit" value="Delete">
-		</form>
-	<%end%>
-
-
 <!-- ANSWER UPVOTE -->
 
-<%=@question.qvotes.where(upvote: 1).count%>
-	<form action="/upvote/<%= @question.id %>" method="post" id="ajax">
-		<input type="hidden" name="question_id" value="<%=@question.id%>">
-		<input type="submit" value="Up" name="Upvote" />
-	</form>
 
-<!-- ANSWER DOWNVOTE -->
-
-	<form action="/downvote/<%= @question.id %>" method="post">
-		<input type="hidden" name="question_id" value="<%=@question.id%>">
-		<input type="submit" value="Down" name="Downvote" />
-	</form>
-<%=@question.qvotes.where(downvote: 1).count%>
 
 </div>
 

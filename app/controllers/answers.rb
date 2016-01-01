@@ -18,8 +18,10 @@ post '/answers' do
 end
 
 
-# VOTES UP
-post "/answers/upvote/:id" do
+
+
+# ANSWERS VOTES UP
+post "/questions/:question_id/answer/:answer_id/upvote" do
 
 	voting = Avote.find_by(user_id: current_user, answer_id: params[:answer_id])
 
@@ -38,9 +40,9 @@ post "/answers/upvote/:id" do
 	end
 end
 
-# VOTES DOWN
+# ANSWERS VOTES DOWN
 
-post "/answers/downvote/:id" do
+post "/questions/:question_id/answer/:answer_id/downvote" do
 
 	voting = Avote.find_by(user_id: current_user, answer_id: params[:answer_id])
 
@@ -62,5 +64,3 @@ post "/answers/downvote/:id" do
 		erb :"404"
 	end
 end
-
-
