@@ -49,12 +49,12 @@
 			<div class="panel-heading">
 			
 				<form action="/answer/downvote/<%=a.id%>" method="post">
-					<input type="hidden" name="answer_id" style="display: inline;" value="<%=a.id%>">
+					<input type="hidden" name="question_id" style="display: inline;" value="<%=@question.id%>">
 					<button type="submit" class="pull-right btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
 				</form>	 
 
 				<form action="/answer/upvote/<%= a.id %>"  method="post" id="ajax">
-					<input type="hidden" name="answer_id" value="<%=a.id%>">
+					<input type="hidden" name="question_id" value="<%=@question.id%>">
 					<button type="submit" id="like" class="pull-right btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.avotes.where(upvote: 1).count%></button>
 				</form>
 	
