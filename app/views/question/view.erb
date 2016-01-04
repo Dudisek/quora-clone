@@ -48,13 +48,13 @@
 		<div class="panel panel-warning">
 			<div class="panel-heading">
 			
-				<form action="/questions/<%= @question.id %>/answer/<%= a.id %>/downvote" method="post">
-					<input type="hidden" name="question_id" style="display: inline;" value="<%=a.id%>">
+				<form action="/answer/downvote/<%=a.id%>" method="post">
+					<input type="hidden" name="answer_id" style="display: inline;" value="<%=a.id%>">
 					<button type="submit" class="pull-right btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-down"><span style="glyphicon glyphicon-thumbs-down"></span></button>
 				</form>	 
 
-				<form action="/questions/<%= @question.id %>/answer/<%= a.id %>/upvote"  method="post" id="ajax">
-					<input type="hidden" name="question_id" value="<%=a.id%>">
+				<form action="/answer/upvote/<%= a.id %>"  method="post" id="ajax">
+					<input type="hidden" name="answer_id" value="<%=a.id%>">
 					<button type="submit" id="like" class="pull-right btn btn-default navbar-btn btn-xs glyphicon glyphicon-thumbs-up"><span style="glyphicon glyphicon-thumbs-up"></span> | <%=a.avotes.where(upvote: 1).count%></button>
 				</form>
 	
@@ -63,11 +63,11 @@
 
 	
 
-			</div>
+			</div><!-- /panel-heading -->
 				<div class="panel-body">
 				<%=a.comment%>
 				</div><!-- /panel-body -->
-		</div><!-- /panel panel-default -->
+		</div><!-- /panel panel-warn -->
 	</div><!-- /col-sm-5 -->
 </div><!-- /container --> 
 <%end%>
@@ -88,10 +88,6 @@
 <% else %>
 <p>Just registered users can create answers - please log in or create a new account</p>
 <% end %>
-
-
-<!-- ANSWER UPVOTE -->
-
 
 
 </div>
@@ -163,7 +159,7 @@
 			 	<input type="submit" class="btn btn-primary" value="Login">
 			</form>
 			<br><br>
-			<a href="#" data-toggle="modal" data-target="#RegistrationButton">No account yet? Create a new account</a>
+			<a href="#" data-toggle="modal" data-target="#RegistrationButton">No account yet? Create a new account</a><br>
 		</div>
 	<!-- </div> -->
 	<%end%>
