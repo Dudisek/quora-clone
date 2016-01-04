@@ -1,9 +1,6 @@
 # Specify gemfile Location and general variables
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
-
-set :public_folder, File.join(APP_ROOT, "public")
-
 # Perform requiring gem that we need
 ######################################################################
 	# basic
@@ -53,7 +50,7 @@ use Rack::Session::Cookie, expire_after: ENV['SESSION_EXPIRE'] || 2592000, # sec
 
 # Setup Models (M) and its database
 require APP_ROOT.join('config', 'database')
-
+set :public_folder, File.join(APP_ROOT, "public")
 # Setup views (V)
 set :views, File.join(APP_ROOT, "app", "views")
 
