@@ -1,6 +1,9 @@
 # Specify gemfile Location and general variables
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
+
+set :public_folder, File.join(APP_ROOT, "public")
+
 # Perform requiring gem that we need
 ######################################################################
 	# basic
