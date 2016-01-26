@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 	// SCROLL MENU
      $('[data-toggle="tooltip"]').tooltip()
@@ -14,7 +13,6 @@ $(document).ready(function(){
 	$('#myTabs a:first').tab('show') // Select first tab
 	$('#myTabs a:last').tab('show') // Select last tab
 	$('#myTabs li:eq(2) a').tab('show') // Select third tab (0-indexed)
-
 
 	//  LOGIN POP UP WINDOW
 	$('#loginButton').on('show.bs.modal', function (event) {
@@ -60,17 +58,12 @@ $(document).ready(function(){
 	  modal.find('.modal-body input').val()
 	})	
 
-
-
-
-
 	$('.like').submit(function(event) {
 	 
-            var question_id  = $('input[name=question_id]').val()
-            // 'email'             : $('input[name=email]').val(),
-            // 'superheroAlias'    : $('input[name=superheroAlias]').val()
-        
-      
+  var question_id  = $('input[name=question_id]').val()
+  // 'email'             : $('input[name=email]').val(),
+  // 'superheroAlias'    : $('input[name=superheroAlias]').val()
+
     $.ajax({
         type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
         url         : '/upvote/' + question_id, // the url where we want to POST
@@ -78,45 +71,14 @@ $(document).ready(function(){
         dataType    : 'json', // what type of data do we expect back from the server
                     encode          : true
         })
-
             .done(function(data) {
             	alert("it works")
             	debugger;
                 // log data to the console so we can see
                 console.log(data); 
-
                 // here we will handle errors and validation messages
             });
-
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
     });
-
-
 });
-
-
-// <%=@question.qvotes.where(upvote: 1).count%>
-// 	<form action="/upvote/<%= @question.id %>" method="post" id="ajax">
-// 		<input type="hidden" name="question_id" value="<%=@question.id%>">
-// 		<input type="submit" value="Up" name="Upvote" />
-// 	</form>
-
-// post "/upvote/:id" do
-
-	// voting = Qvote.find_by(user_id: current_user, question_id: params[:question_id])
-
-	// if voting.nil?
-	// 	q = Qvote.create(upvote: 1, question_id: params[:question_id], user: current_user)
-	// 	redirect "/questions/#{q.question_id}"
-	// elsif voting.upvote == 0 || voting.upvote == nil
-	// 	voting.upvote = 1
-	// 	voting.downvote = 0
-	// 	voting.save
-	// 	redirect "/questions/#{voting.question_id}"	
-	// elsif voting.upvote == 1
-// 		voting.upvote = 0
-// 		voting.save
-// 		redirect "/questions/#{voting.question_id}"	
-// 	end
-// end

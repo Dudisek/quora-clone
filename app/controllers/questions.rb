@@ -21,7 +21,6 @@ post "/answer/upvote/:id" do
 end	
 
 # ANSWERS VOTES DOWN
-
 post "/answer/downvote/:id" do
 
 	voting = Avote.find_by(user_id: current_user, answer_id: params[:answer_id])
@@ -55,7 +54,6 @@ post '/questions' do
 	question = current_user.questions.new(title: params[:title], body: params[:body])
   if question.save
 		redirect "/questions/#{question.id}"
-		# redirect "/users/#{current_user.id}"
 	else
 		@error = question.errors.full_messages
 		erb :"question/create"
@@ -106,7 +104,6 @@ end
 
 # QUESTIONS VOTES UP
 post "/upvote/:id" do
-
 	voting = Qvote.find_by(user_id: current_user, question_id: params[:question_id])
 
 	if voting.nil?
@@ -128,14 +125,12 @@ post "/upvote/:id" do
 end
 
 # QUESTIONS VOTES DOWN
-
 post "/downvote/:id" do
 	voting = Qvote.find_by(user_id: current_user, question_id: params[:question_id])
 
 	if voting.nil?
 		q = Qvote.create(downvote: 1, question_id: params[:question_id], user: current_user)
 		redirect "/questions/#{q.question_id}"
-
 	elsif voting.downvote == 0 || voting.downvote == nil
 		voting.downvote = 1
 		voting.upvote = 0
@@ -150,9 +145,3 @@ post "/downvote/:id" do
 		erb :"404"
 	end
 end
-
-
-
-
-
-

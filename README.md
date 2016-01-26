@@ -1,3 +1,9 @@
+# QUORA CLONE
+<br>
+DEMO: <a href="http://quora.herokuapp.com">http://quora.herokuapp.com</a>
+<br>
+My second Sinatra app.
+
 #Sinatra Web Server
 ## Repo details
 | Details   |  | 
